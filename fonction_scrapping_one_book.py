@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from math import *
 
+
 url = 'http://books.toscrape.com/catalogue/sharp-objects_997/index.html'
 
 def scrapping_one_book(url_dun_livre):
