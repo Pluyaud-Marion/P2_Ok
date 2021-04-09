@@ -2,9 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from math import *
 import webbrowser
-from fonction_scrapping_one_book import scrapping_one_book
+from fonction_scrapping import scrapping_one_book
 
-url = 'http://books.toscrape.com/catalogue/sharp-objects_997/index.html'
+
+url = input("Veuillez saisir l'url d'un livre : ")
+
 response = requests.get(url)
 if response.ok:
     book_info = scrapping_one_book(url) 
