@@ -2,15 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 from math import *
 
-
-
-
-#fonction 1
-def scrapping_one_book(url_dun_livre):
-    response = requests.get(url_dun_livre)   
+#fonction 1 TEST
+def scrapping_one_book(url):
+    response = requests.get(url)   
     if response.ok:
         soup = BeautifulSoup(response.text,'lxml')
-        product_page_url = url_dun_livre #le paramètre de ma fonction
+        product_page_url = url #le paramètre de ma fonction
         title = soup.find('h1')
         tds = soup.findAll('td') #liste des 7 tds
         universal_product_code = tds[0].text
@@ -33,6 +30,7 @@ def scrapping_one_book(url_dun_livre):
             'title': title.text,
             'price_including_tax': price_including_tax,
             'price_excluding_tax': price_excluding_tax,
+            'number_available' : number_available,
             'product_description': product_description,
             'category': category,
             'review_rating': review_rating,
@@ -41,9 +39,9 @@ def scrapping_one_book(url_dun_livre):
             #dictionnaire créé avec toutes les infos d'un livre
     return book_info
 
+
+
 #fonction 2 : 
-
-
 
 def scrapping_one_category(url_category): 
     response = requests.get(url_category)#requete ds les urls de la catégorie
@@ -69,8 +67,7 @@ def scrapping_one_category(url_category):
             
 
     else: 
-        url_une_page = url_category
-        response = requests.get(url_une_page)
+        response = requests.get(url_category)
         if response.ok:
             soup = BeautifulSoup(response.text,'lxml')
             #categorie = soup.find('div', {'class' : 'page-header action'}).find('h1') #récupère nom de la catégorie
@@ -95,4 +92,5 @@ def scrapping_all_category(url_site):
     for li in link: # ou for li in li_link
         a=li.find('a')
         urls.append(a['href'])
+
     return urls

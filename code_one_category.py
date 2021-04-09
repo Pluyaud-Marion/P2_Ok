@@ -5,16 +5,16 @@ import webbrowser
 from fonction_scrapping import scrapping_one_book, scrapping_one_category
 
 #url_category = "http://books.toscrape.com/catalogue/category/books/travel_2/"
-url_category = "http://books.toscrape.com/catalogue/category/books/mystery_3/"
+#url_category = "http://books.toscrape.com/catalogue/category/books/mystery_3/"
 #url_category = "http://books.toscrape.com/catalogue/category/books/historical-fiction_4/"
-#url_category = "http://books.toscrape.com/catalogue/category/books/classics_6/"
+url_category = "http://books.toscrape.com/catalogue/category/books/classics_6/"
 
 
 response = requests.get(url_category)
 if response.ok:
     links = scrapping_one_category(url_category) #la fonction scrapping_one_category retourne une liste. links est une variable dans laquelle je mets le résultat de la fonction
     #je passe en paramètre l'url de ma catégorie. la fonction utilise ce paramètre pour faire la requete.get
-    #print(links)
+    print(links)
     soup = BeautifulSoup(response.text, 'lxml')
     categorie = soup.find('div', {'class' : 'page-header action'}).find('h1') #récupère nom de la catégorie
     #links affiche les liens de tous les livres de la catégorie
