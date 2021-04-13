@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 from math import *
 import wget
 
-#fonction 1 TEST
+
+#fonction 1 
 def scrapping_one_book(url):
     response = requests.get(url)   
     if response.ok:
-        soup = BeautifulSoup(response.text,'lxml')
+        response.encoding = 'utf-8'
+        soup = BeautifulSoup (response.text, 'lxml')
         product_page_url = url #le paramètre de ma fonction
         title = soup.find('h1')
         tds = soup.findAll('td') #liste des 7 tds
@@ -23,7 +25,7 @@ def scrapping_one_book(url):
         category = category_find[2].text
         description = soup.find('article', {'class' : 'product_page'}).findAll('p')
         product_description = description[3].text
-        wget.download(image_url) #télécharge l'image 
+        
       
         book_info = {
             'product_page_url': product_page_url, 
@@ -36,7 +38,7 @@ def scrapping_one_book(url):
             'category': category,
             'review_rating': review_rating,
             'image_url':  image_url            
-            }
+        }
             #dictionnaire créé avec toutes les infos d'un livre
     return book_info
 
@@ -54,7 +56,7 @@ def scrapping_one_category(url_category):
 
     if nombre_pages > 1:
         for i in range(1, nombre_pages+1):
-            url_pages= url_category + 'page-' + str(i) + '.html' #pour que ça parcourt toutes les pages
+            url_pages= url_category.replace('index.html','page-' + str(i) + '.html') #pour que ça parcourt toutes les pages
             response = requests.get(url_pages)
             if response.ok:
                 soup = BeautifulSoup(response.text,'lxml')
