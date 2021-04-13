@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from math import *
+import wget
 
 #fonction 1 TEST
 def scrapping_one_book(url):
@@ -22,7 +23,7 @@ def scrapping_one_book(url):
         category = category_find[2].text
         description = soup.find('article', {'class' : 'product_page'}).findAll('p')
         product_description = description[3].text
-        
+        wget.download(image_url) #télécharge l'image 
       
         book_info = {
             'product_page_url': product_page_url, 
@@ -94,3 +95,16 @@ def scrapping_all_category(url_site):
         urls.append(a['href'])
 
     return urls
+
+#fonction 4: récupère les urls des images
+def scrapping_images(url_livres):
+    response = requests.get(url_livres)
+    if response.ok:
+        soup = BeautifulSoup(response.text, 'lxml')
+        image= soup.find('div',{'class' : 'item active'}).find('img')
+        image_url = 'http://books.toscrape.com/'+ image['src'][6:]
+
+    return image_url
+
+
+
