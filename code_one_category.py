@@ -1,16 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 from math import *
-import webbrowser
 import wget
 import os.path
 from fonction_scrapping import scrapping_one_book, scrapping_one_category, scrapping_images
-os.makedirs("images_Books")
-output_directory = "images_Books"
+os.makedirs("Images_books_one_category")
+output_directory = "Images_books_one_category"
+import csv
+import re
 
-url_category = "http://books.toscrape.com/catalogue/category/books/travel_2/index.html"
+#url_category = "http://books.toscrape.com/catalogue/category/books/travel_2/index.html"
 #url_category = "http://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
-#url_category = "http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html"
+url_category = "http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html"
 #url_category = "http://books.toscrape.com/catalogue/category/books/classics_6/index.html"
 
 
@@ -30,12 +31,12 @@ for link in links: #boucle for : je cherche dans les liens
 
     wget.download(urls_image, out=output_directory) #télécharge les images
 
-    with open ("images.txt", "a+") as file: 
+    with open ("url_images.txt", "a+") as file: 
         file.write(urls_image + '\n') 
 
-    with open ('infos_' + str(categorie.text) + '.csv', 'a+') as file:
+    with open ('books_infos_' + categorie.text + '.csv', 'a+', newline ='') as file:
         file.write('product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
-        file.write(str(book_info))
+        file.write(str(book_info) + '\n')
 
 
 

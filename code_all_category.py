@@ -4,8 +4,8 @@ from math import *
 import wget
 from fonction_scrapping import scrapping_one_book, scrapping_all_category, scrapping_one_category, scrapping_images, scrapp_category
 import os.path
-#os.makedirs("images_Books")
-#output_directory = "images_Books"
+os.makedirs("images_Books")
+output_directory = "images_Books"
 import csv
 import re
 
@@ -21,7 +21,7 @@ if response.ok:
 
 
 links_livres = []
-for url_complete in liste_urls_completes[1:3]: #tant qu'on est dans les urls des catégories #supprime le premier (page d'accueil)
+for url_complete in liste_urls_completes[1:4]: #tant qu'on est dans les urls des catégories #supprime le premier (page d'accueil)
     links_livres.append(scrapping_one_category(url_complete)) #rajoute chaque lien dans la liste/ url_complete = les urls des catégories
 print(links_livres)
 #2 : affiche les urls de tous les livres des catégories sous forme de liste 
@@ -32,20 +32,27 @@ for link_livre in links_livres:
         book_info.append(scrapping_one_book(link_dun_livre))
 #print(book_info)
 
-
-for url_complete in liste_urls_completes[1:3]: 
-    with open ('infos_' + str((scrapp_category(url_complete)))+ '.csv', 'w') as file:
+for url_complete in liste_urls_completes[1:4]:
+    with open ('infos_' + str((scrapp_category(url_complete)))+ '.csv', 'w', ) as file:
             file.write('product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
-            file.write(str(book_info))
+            file.write(str(book_info) + '\n')
 
+    
+""" 
+    # création de dossiers pour chaque catégorie # STOP #
+for url_complete in liste_urls_completes[2:4]: 
+    os.mkdir(str((scrapp_category(url_complete))))
+"""
 
-
-"""for link_livre in links_livres:
+     
+for link_livre in links_livres:
     for link_dun_livre in link_livre:
         urls_image = scrapping_images(link_dun_livre)
-    print(urls_image)
+    #print(urls_image)
 
-    with open ("images.txt", "a+") as file: 
-        file.write(urls_image + '\n')
-    wget.download(urls_image, out=output_directory)
-#4 : télécharge les images + créé un fichier txt avec les liens de toutes les images"""
+        with open ("images.txt", "a+") as file: 
+            file.write(urls_image + '\n')
+        
+        wget.download(urls_image, out=output_directory)
+
+#4 : télécharge les images dans le dossier images_books + créé un fichier txt avec les liens de toutes les images
