@@ -2,12 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 from math import *
 import wget
-
+import re
 
 #fonction 1 
 def scrapping_one_book(url):
     response = requests.get(url)   
     if response.ok:
+        
         response.encoding = 'utf-8'
         soup = BeautifulSoup (response.text, 'lxml')
         product_page_url = url #le paramètre de ma fonction
@@ -23,6 +24,8 @@ def scrapping_one_book(url):
         review_rating = rating['class'][1]
         category_find = soup.find('ul', {'class' : 'breadcrumb'}).findAll('li')
         category = category_find[2].text
+        regex = re.compile('[\n\r\t]')
+        category = regex.sub(" ", category)
         description = soup.find('article', {'class' : 'product_page'}).findAll('p')
         product_description = description[3].text
         
@@ -42,7 +45,14 @@ def scrapping_one_book(url):
             #dictionnaire créé avec toutes les infos d'un livre
     return book_info
 
-
+#fonction qui récupère le nom de la catégorie
+def scrapp_category(url):
+    response = requests.get(url)   
+    if response.ok:
+        soup = BeautifulSoup(response.text, 'lxml')
+        category = soup.find('div', {'class' : 'page-header action'}).find('h1')
+       
+    return category.text
 
 #fonction 2 : 
 
@@ -52,15 +62,13 @@ def scrapping_one_category(url_category):
     soup = BeautifulSoup(response.text, 'lxml')
     nombre_livres = soup.find('form', {'class' : 'form-horizontal'}).find('strong')
     nombre_pages = ceil(int(nombre_livres.text) / int(20))
-    #categorie = soup.find('div', {'class' : 'page-header action'}).find('h1') #récupère nom de la catégorie
-
+    
     if nombre_pages > 1:
         for i in range(1, nombre_pages+1):
             url_pages= url_category.replace('index.html','page-' + str(i) + '.html') #pour que ça parcourt toutes les pages
             response = requests.get(url_pages)
             if response.ok:
                 soup = BeautifulSoup(response.text,'lxml')
-                #categorie = soup.find('div', {'class' : 'page-header action'}).find('h1') #récupère nom de la catégorie
                 livre = soup.findAll('article')
                 for article in livre:
                     a = article.find('a')
@@ -73,7 +81,6 @@ def scrapping_one_category(url_category):
         response = requests.get(url_category)
         if response.ok:
             soup = BeautifulSoup(response.text,'lxml')
-            #categorie = soup.find('div', {'class' : 'page-header action'}).find('h1') #récupère nom de la catégorie
             livre = soup.findAll('article')
             for article in livre:
                 a = article.find('a')
@@ -82,8 +89,6 @@ def scrapping_one_category(url_category):
                 
 
     return links
-
-
 
 
 #fonction 3:
