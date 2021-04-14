@@ -29,7 +29,7 @@ def scrapping_one_book(url):
         description = soup.find('article', {'class' : 'product_page'}).findAll('p')
         product_description = description[3].text
         
-        """ DICTIONNAIRE
+        #DICTIONNAIRE
         book_info = {
             'product_page_url': product_page_url, 
             'universal_product_code(upc)': universal_product_code,
@@ -42,12 +42,8 @@ def scrapping_one_book(url):
             'review_rating': review_rating,
             'image_url':  image_url            
         }
-            #dictionnaire créé avec toutes les infos d'un livre
-        """   
-
-        """ TUPLE """
-        book_info = product_page_url, universal_product_code, title.text, price_including_tax, price_excluding_tax, number_available, product_description.replace(',',';'), category, review_rating, image_url  
-    
+             
+        
     return book_info
 
 #fonction qui récupère le nom de la catégorie

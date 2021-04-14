@@ -21,7 +21,7 @@ if response.ok:
 
 
 links_livres = []
-for url_complete in liste_urls_completes[1:4]: #tant qu'on est dans les urls des catégories #supprime le premier (page d'accueil)
+for url_complete in liste_urls_completes[1:3]: #tant qu'on est dans les urls des catégories #supprime le premier (page d'accueil)
     links_livres.append(scrapping_one_category(url_complete)) #rajoute chaque lien dans la liste/ url_complete = les urls des catégories
 print(links_livres)
 #2 : affiche les urls de tous les livres des catégories sous forme de liste 
@@ -32,12 +32,15 @@ for link_livre in links_livres:
         book_info.append(scrapping_one_book(link_dun_livre))
 #print(book_info)
 
-for url_complete in liste_urls_completes[1:4]:
-    with open ('infos_' + str((scrapp_category(url_complete)))+ '.csv', 'w', ) as file:
-            file.write('product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
-            file.write(str(book_info) + '\n')
+for url_complete in liste_urls_completes[1:3]:
+    with open ('infos_' + str((scrapp_category(url_complete)))+ '.csv', 'w', newline ='') as csvfile:
+        for link_livre in links_livres:
+            for link_dun_livre in link_livre: #2 boucles car link_livre est une liste alors on reboucle à l'intérieur pour chercher chaque url
+                fieldnames = ['product_page_url', 'universal_product_code(upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerow(scrapping_one_book(link_dun_livre)) #avec books_info ne fonctionnait pas car était une liste, j'appelle donc ma fonction
 
-    
 """ 
     # création de dossiers pour chaque catégorie # STOP #
 for url_complete in liste_urls_completes[2:4]: 

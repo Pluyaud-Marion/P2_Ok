@@ -22,10 +22,11 @@ urls_image = scrapping_images(url_dun_livre)
 
 wget.download(urls_image, out=output_directory)
 
-         
 with open ('infos_un_livre.csv', 'w', newline ='') as csvfile:
-       csvfile.write('product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url, \n')
-       csvfile.write(str(book_info) + '\n')
+        fieldnames = ['product_page_url', 'universal_product_code(upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerow(book_info)
 
 
        

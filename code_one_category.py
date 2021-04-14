@@ -9,9 +9,9 @@ output_directory = "Images_books_one_category"
 import csv
 import re
 
-#url_category = "http://books.toscrape.com/catalogue/category/books/travel_2/index.html"
+url_category = "http://books.toscrape.com/catalogue/category/books/travel_2/index.html"
 #url_category = "http://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
-url_category = "http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html"
+#url_category = "http://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html"
 #url_category = "http://books.toscrape.com/catalogue/category/books/classics_6/index.html"
 
 
@@ -34,10 +34,12 @@ for link in links: #boucle for : je cherche dans les liens
     with open ("url_images.txt", "a+") as file: 
         file.write(urls_image + '\n') 
 
-    with open ('books_infos_' + categorie.text + '.csv', 'a+', newline ='') as file:
-        file.write('product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url\n')
-        file.write(str(book_info) + '\n')
-
+    with open ('books_infos_' + categorie.text + '.csv', 'a+', newline ='') as csvfile:
+        fieldnames = ['product_page_url', 'universal_product_code(upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerow(book_info)
+            
 
 
  
