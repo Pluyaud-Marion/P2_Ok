@@ -5,10 +5,10 @@ import wget
 from fonction_scrapping import scrapping_one_book, scrapping_images
 import csv
 import os.path
-os.makedirs("Image_one_book")
-output_directory = "Image_one_book"
 import re
 
+os.mkdir("Books.toscrap")
+os.chdir("Books.toscrap")
 
 url_dun_livre = input("Veuillez saisir l'url d'un livre : ")
 
@@ -18,8 +18,10 @@ if response.ok:
        book_info = scrapping_one_book(url_dun_livre) 
 print(book_info)
 
-urls_image = scrapping_images(url_dun_livre)          
+urls_image = scrapping_images(url_dun_livre)    
 
+os.mkdir("Image_one_book") #création d'un dossier image
+output_directory = "Image_one_book" #change le répertoire pour mettre l'image
 wget.download(urls_image, out=output_directory)
 
 with open ('infos_un_livre.csv', 'w', newline ='') as csvfile:
