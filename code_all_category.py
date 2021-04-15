@@ -4,10 +4,10 @@ from math import *
 import wget
 from fonction_scrapping import scrapping_one_book, scrapping_all_category, scrapping_one_category, scrapping_images, scrapp_category
 import os.path
-os.makedirs("images_Books")
-output_directory = "images_Books"
 import csv
 import re
+os.mkdir("Books.toscrap")
+os.chdir("Books.toscrap")
 
 url_site = 'http://books.toscrape.com/index.html'
 liste_urls_completes = []
@@ -32,7 +32,10 @@ for link_livre in links_livres:
         book_info.append(scrapping_one_book(link_dun_livre))
 #print(book_info)
 
+
 for url_complete in liste_urls_completes[1:3]:
+    os.mkdir(str(scrapp_category(url_complete)))
+    #os.chdir(str(scrapp_category(url_complete)))
     with open ('infos_' + str((scrapp_category(url_complete)))+ '.csv', 'w', newline ='') as csvfile:
         for link_livre in links_livres:
             for link_dun_livre in link_livre: #2 boucles car link_livre est une liste alors on reboucle à l'intérieur pour chercher chaque url
@@ -41,21 +44,20 @@ for url_complete in liste_urls_completes[1:3]:
                 writer.writeheader()
                 writer.writerow(scrapping_one_book(link_dun_livre)) #avec books_info ne fonctionnait pas car était une liste, j'appelle donc ma fonction
 
-""" 
-    # création de dossiers pour chaque catégorie # STOP #
-for url_complete in liste_urls_completes[2:4]: 
-    os.mkdir(str((scrapp_category(url_complete))))
-"""
 
-     
+
+os.mkdir("images_Books")
+os.chdir("images_Books")
+
+
 for link_livre in links_livres:
     for link_dun_livre in link_livre:
         urls_image = scrapping_images(link_dun_livre)
     #print(urls_image)
-
-        with open ("images.txt", "a+") as file: 
-            file.write(urls_image + '\n')
         
-        wget.download(urls_image, out=output_directory)
+        with open ("urls_images.txt", "a+") as file: 
+            file.write(urls_image + '\n')
+
+        wget.download(urls_image) 
 
 #4 : télécharge les images dans le dossier images_books + créé un fichier txt avec les liens de toutes les images
