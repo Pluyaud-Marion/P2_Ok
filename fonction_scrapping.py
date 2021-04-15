@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 from math import *
 import wget
 import re
+import csv 
 
-#fonction 1 
+#fonction 1 : récupère les infos sur un livre
 def scrapping_one_book(url):
     response = requests.get(url)   
     if response.ok:
@@ -29,7 +30,7 @@ def scrapping_one_book(url):
         description = soup.find('article', {'class' : 'product_page'}).findAll('p')
         product_description = description[3].text
         
-        #DICTIONNAIRE
+        
         book_info = {
             'product_page_url': product_page_url, 
             'universal_product_code(upc)': universal_product_code,
@@ -46,7 +47,7 @@ def scrapping_one_book(url):
         
     return book_info
 
-#fonction qui récupère le nom de la catégorie
+#fonction 2: qui récupère le nom de la catégorie
 def scrapp_category(url):
     response = requests.get(url)   
     if response.ok:
@@ -55,8 +56,7 @@ def scrapp_category(url):
        
     return category.text
 
-#fonction 2 : 
-
+#fonction 3 : récupère la liste des liens des livres d'une catégorie
 def scrapping_one_category(url_category): 
     response = requests.get(url_category)#requete ds les urls de la catégorie
     links = []
@@ -92,7 +92,7 @@ def scrapping_one_category(url_category):
     return links
 
 
-#fonction 3:
+#fonction 4: récupère la liste des urls des catégories
 def scrapping_all_category(url_site):
     urls = [] #liste des catégories
     response = requests.get(url_site)
@@ -104,7 +104,7 @@ def scrapping_all_category(url_site):
 
     return urls
 
-#fonction 4: récupère les urls des images
+#fonction 5: récupère les urls des images
 def scrapping_images(url_livres):
     response = requests.get(url_livres)
     if response.ok:
@@ -115,4 +115,19 @@ def scrapping_images(url_livres):
     return image_url
 
 
+#fonction 6 : écrit les infos ds fichier csv
+def category_book_to_csv(links,categorie):
+    """
+    Les infos de tous les livres d'une catégorie : car on boucle sur les liens de la catégorie
+    """
+    books_infos = [] #création d'une liste vide
+    for link in links: #boucle for : je cherche dans les liens
+        books_infos.append(scrapping_one_book(link)) #j'appelle fonction 1 qui renvoie les infos de tous les livres + je les mets ds une liste
+
+    with open ('books_infos_' + categorie + '.csv', 'w+', newline ='') as csvfile:
+        fieldnames = ['product_page_url', 'universal_product_code(upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',')
+        writer.writeheader()
+        for book_info in books_infos: 
+            writer.writerow(book_info)  
 
