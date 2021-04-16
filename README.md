@@ -4,13 +4,15 @@ Ce projet a pour objectif de récupérer les données du site http://books.toscr
 
 Il a été réalisé avec la version 3.9.2 de Python. Vous pouvez l'installer  : https://www.python.org/downloads/release/python-392/  
 
-Pour accéder aux informations du projet, vous devez d'abord créer et activer votre environnement virtuel à l’aide de la commande suivante : 
+Pour accéder aux informations du projet, vous devez d'abord télécharger le dossier P2_Pluyaud_Marion.zip via Github puis le décompresser à l'endroit de votre choix.
 
-  ```virtualenv -p python3 env``` --> pour créer l'environnement virtuel (si vous avez installé virtualenv // sinon utilisez : ```python -m venv env```) 
+Ensuite vous devez vous rendre dans le repertoire du dossier (grâce au terminal si vous êtes sur Mac ou Linux, et de l'invite de commande sous Windows), pour créer et activer votre environnement virtuel à l’aide de la commande suivante : 
 
-  ```source env/bin/activate``` --> pour l'activer sous Mac // directement à partir du terminal 
+   ```python -m venv env```  --> pour créer l'environnement virtuel 
 
-  ```env\Scripts\activate``` --> pour l'activer sous Windows // à partir de Windows powershell, ou de l'invite de commandes 
+  ```source env/bin/activate``` --> pour l'activer sous Mac et Linux 
+
+  ```env\Scripts\activate``` --> pour l'activer sous Windows
 
 Une fois votre environnement virtuel activé, il sera nécessaire d'installer les paquets dans votre environnement pour que vous puissiez exécuter les scripts correctement. 
 
