@@ -10,7 +10,7 @@ Pour accéder aux informations du projet, vous devez d'abord créer et activer v
 
   ```source env/bin/activate``` --> pour l'activer sous Mac // directement à partir du terminal 
 
-  ```env/Scripts/activate.bat``` --> pour l'activer sous Windows // à partir de Windows powershell, ou de l'invite de commandes 
+  ```env\Scripts\activate``` --> pour l'activer sous Windows // à partir de Windows powershell, ou de l'invite de commandes 
 
 Une fois votre environnement virtuel activé, il sera nécessaire d'installer les paquets dans votre environnement pour que vous puissiez exécuter les scripts correctement. 
 
@@ -21,7 +21,7 @@ Vous pouvez désormais lancer l'exécution des différents scripts.
 
 Ce repository contient 4 scripts Python : 
 
-  1/ "fonctions_scrapping.py" : ce fichier contient les 6 fonctions nécessaires la bonne exécution des 3 scripts (vous trouverez à l'intérieur de chaque script des commentaires pour plus de lisibilité) 
+  1/ "fonctions_scrapping.py" : ce fichier contient les 6 fonctions nécessaires à la bonne exécution des 3 scripts (vous trouverez à l'intérieur de chaque script des commentaires pour plus de lisibilité) 
 
   2/ "code_one_book.py" : il s'agit de la première étape du projet  --Les informations concernant un livre--
 
