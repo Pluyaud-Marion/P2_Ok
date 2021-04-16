@@ -7,9 +7,9 @@ import csv
 import os.path
 import re
 
-if not os.path.exists("books_toscrap"):
-       os.mkdir("books_toscrap")#création dossier books_toscrap
-os.chdir("books_toscrap")#rentre dans le dossier
+if not os.path.exists("books_toscrap_one_book"):
+       os.mkdir("books_toscrap_one_book")#création dossier books_toscrap
+os.chdir("books_toscrap_one_book")#rentre dans le dossier
 
 url_dun_livre = input("Veuillez saisir l'url d'un livre : ")
 

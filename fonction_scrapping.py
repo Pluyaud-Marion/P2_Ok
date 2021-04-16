@@ -117,9 +117,6 @@ def scrapping_images(url_livres):
 
 #fonction 6 : écrit les infos ds fichier csv
 def category_book_to_csv(links,categorie):
-    """
-    Les infos de tous les livres d'une catégorie : car on boucle sur les liens de la catégorie
-    """
     books_infos = [] #création d'une liste vide
     for link in links: #boucle for : je cherche dans les liens
         books_infos.append(scrapping_one_book(link)) #j'appelle fonction 1 qui renvoie les infos de tous les livres + je les mets ds une liste
