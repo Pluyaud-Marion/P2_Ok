@@ -32,6 +32,7 @@ Ce repository contient 4 scripts Python :
 Un dossier "books_toscrap_one_book" va s'ouvrir dans le répertoire courant contenant l'exécution du script. Vous y trouverez : 
 
   -L'image de la couverture du livre 
+  
   -Un fichier CSV comprenant les informations suivantes sur le livre que vous avez demandé : (Product_page_url / Universal_ product_code (upc) / Title / Price_including_tax / Price_excluding_tax / Number_available / Product_description / Category / Review_rating / Image_url)  
 
 
@@ -44,6 +45,7 @@ Un dossier "books_toscrap_one_book" va s'ouvrir dans le répertoire courant cont
 Un dossier "books_toscrap_one_category" va s'ouvrir dans le répertoire courant contenant l'exécution du script. Vous y trouverez : 
 
   -Un dossier nommé "Images" + le nom de la catégorie concernée, qui contient les images de couverture de chaque livre de la catégorie 
+  
   -Un fichier CSV nomme « infos_books » + le nom de la catégorie concernée, comprenant les informations suivantes sur chaque livre de la catégorie : (Product_page_url / Universal_ product_code (upc) / Title / Price_including_tax / Price_excluding_tax / Number_available / Product_description / Category / Review_rating / Image_url)  
 
 
@@ -55,10 +57,13 @@ Un dossier "books_toscrap_one_category" va s'ouvrir dans le répertoire courant 
 Vous n’avez pas besoin de renseigner d’éléments, le script va automatiquement parcourir chacune des 50 catégories du site et identifier chacun des livres de ces catégories. 
 
 Un dossier « books_toscrap » va s’ouvrir dans le répertoire courant contenant l’exécution du script. Vous y trouverez : 
+
   -50 dossiers (un pour chaque catégorie) intitulés par le nom de chaque catégorie 
 A l’intérieur de chaque dossier : 
-    -Un dossier nommé « images » + le nom de la catégorie concernée = regroupant les images de couverture de chacun des livres de la catégorie 
-    -Un fichier csv nommé « books_infos » + le nom de la catégorie concernée = comprenant les informations suivantes pour chaque livre de la catégorie : (Product_page_url / Universal_ product_code (upc) / Title / Price_including_tax / Price_excluding_tax / Number_available / Product_description / Category / Review_rating / Image_url)  
+
+   -Un dossier nommé « images » + le nom de la catégorie concernée = regroupant les images de couverture de chacun des livres de la catégorie 
+    
+   -Un fichier csv nommé « books_infos » + le nom de la catégorie concernée = comprenant les informations suivantes pour chaque livre de la catégorie : (Product_page_url / Universal_ product_code (upc) / Title / Price_including_tax / Price_excluding_tax / Number_available / Product_description / Category / Review_rating / Image_url)  
 
       
 
