@@ -14,19 +14,18 @@ if not os.path.exists("books_toscrap_one_category"):
     os.mkdir("books_toscrap_one_category")
 os.chdir("books_toscrap_one_category")
 
-links = scrapping_one_category(url_category)
- #j'appelle fonction 3 qui renvoie la liste de tous les livres d'une catégorie (mis ds variable "links")
-nom_categorie = scrapp_category(url_category) #j'appelle fonction 2 qui scrappe nom de la catégorie
+links = scrapping_one_category(url_category) #appel de fonction 3 : renvoie liste de  tous les livres d'une catégorie
+nom_categorie = scrapp_category(url_category) #appel de fonction 2 : récupère le nom de la catégorie
 
-category_book_to_csv(links,nom_categorie) #création du fichier csv avec le nom de la catégorie
+category_book_to_csv(links,nom_categorie) #création du fichier csv 
 
-if not os.path.exists("images_" + (str(scrapp_category(url_category)))): #création dossier image
+if not os.path.exists("images_" + (str(scrapp_category(url_category)))): 
     os.mkdir("images_" + (str(scrapp_category(url_category))))
 os.chdir("images_" + (str(scrapp_category(url_category))))
 
-for link in links: #pour chaque livre dans tous les livres
-    urls_image = scrapping_images(link) #j'appelle fonction 5 qui récupère les urls des images
-    wget.download(urls_image) #télécharge l'image grace à son url
+for link in links: 
+    urls_image = scrapping_images(link) #appel de fonction 5 : récupère les urls des images
+    wget.download(urls_image) #télécharge l'image à partir de son url
 
 
 

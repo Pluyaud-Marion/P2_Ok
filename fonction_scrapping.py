@@ -5,7 +5,7 @@ import wget
 import re
 import csv 
 
-#fonction 1 : récupère les infos sur un livre
+#fonction 1 : renvoie les infos sur un livre sous forme de dictionnaire
 def scrapping_one_book(url):
     response = requests.get(url)   
     if response.ok:
@@ -47,7 +47,7 @@ def scrapping_one_book(url):
         
     return book_info
 
-#fonction 2: qui récupère le nom de la catégorie
+#fonction 2:  récupère le nom de la catégorie
 def scrapp_category(url):
     response = requests.get(url)   
     if response.ok:
@@ -56,9 +56,9 @@ def scrapp_category(url):
        
     return category.text
 
-#fonction 3 : récupère la liste des liens des livres d'une catégorie
+#fonction 3 : récupère la liste de tous les livres d'une catégorie
 def scrapping_one_category(url_category): 
-    response = requests.get(url_category)#requete ds les urls de la catégorie
+    response = requests.get(url_category)
     links = []
     soup = BeautifulSoup(response.text, 'lxml')
     nombre_livres = soup.find('form', {'class' : 'form-horizontal'}).find('strong')
@@ -66,7 +66,7 @@ def scrapping_one_category(url_category):
     
     if nombre_pages > 1:
         for i in range(1, nombre_pages+1):
-            url_pages= url_category.replace('index.html','page-' + str(i) + '.html') #pour que ça parcourt toutes les pages
+            url_pages= url_category.replace('index.html','page-' + str(i) + '.html') 
             response = requests.get(url_pages)
             if response.ok:
                 soup = BeautifulSoup(response.text,'lxml')
@@ -92,13 +92,13 @@ def scrapping_one_category(url_category):
     return links
 
 
-#fonction 4: récupère la liste des urls des catégories
+#fonction 4: récupère la liste des urls de toutes les catégories
 def scrapping_all_category(url_site):
-    urls = [] #liste des catégories
+    urls = []
     response = requests.get(url_site)
     soup = BeautifulSoup(response.text,'lxml')
     link = soup.find('ul', {'class' : 'nav nav-list'}).findAll('li')
-    for li in link: # ou for li in li_link
+    for li in link:
         a=li.find('a')
         urls.append(a['href'])
 
@@ -115,16 +115,16 @@ def scrapping_images(url_livres):
     return image_url
 
 
-#fonction 6 : écrit les infos ds fichier csv
+#fonction 6 : créé une liste avec les infos sur chaque livre + écrit les infos ds fichier csv
+
 def category_book_to_csv(links,categorie):
-    books_infos = [] #création d'une liste vide
-    for link in links: #boucle for : je cherche dans les liens
-        books_infos.append(scrapping_one_book(link)) #j'appelle fonction 1 qui renvoie les infos de tous les livres + je les mets ds une liste
+    infos_livres = [] 
+    for link in links: 
+        infos_livres.append(scrapping_one_book(link)) #appel de fonction 1 qui renvoie les infos de tous les livres + met dans une liste
 
     with open ('books_infos_' + categorie + '.csv', 'w+', newline ='') as csvfile:
         fieldnames = ['product_page_url', 'universal_product_code(upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',')
         writer.writeheader()
-        for book_info in books_infos: 
-            writer.writerow(book_info)  
-
+        for info_livre in infos_livres: 
+            writer.writerow(info_livre)  
