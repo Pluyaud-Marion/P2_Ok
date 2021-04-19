@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from math import *
+from math import ceil
 import wget
 from fonction_scrapping import scrapping_one_book, scrapping_images, category_book_to_csv
 import csv

@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from math import *
+from math import ceil
 import wget
 import os.path
 import csv
