@@ -5,7 +5,7 @@ import wget
 import os.path
 import csv
 import re
-from fonction_scrapping import scrapping_one_book, scrapping_one_category, scrapping_images, scrapp_category,category_book_to_csv
+from fonction_scrapping import scrapping_one_category, scrapping_images, scrapp_category,category_book_to_csv
 
 
 url_category = input("Veuillez saisir l'url d'une catégorie : ")

@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from math import ceil
 import wget
-from fonction_scrapping import scrapping_one_book, scrapping_images, category_book_to_csv
+from fonction_scrapping import scrapping_one_book, scrapping_images
 import csv
 import os.path
 import re
@@ -27,5 +27,7 @@ with open ('infos_un_livre.csv', 'w', newline ='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',')
         writer.writeheader()
         writer.writerow(book_info)
+
+
 
 
